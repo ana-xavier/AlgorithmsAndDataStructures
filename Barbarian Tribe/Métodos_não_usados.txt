@@ -1,0 +1,118 @@
+//-----------------------------------------------------------------
+    // METODOS BASICOS
+    // --> Retorna o root, ou seja, a raiz da árvore.
+    public String getRoot(){
+        if(root != null){
+            return root.nome;
+        }
+        return null;
+    }
+    // --> Busca pai.
+    public String getPai(String nome){
+        if(nome != null){
+            NodoArvore aux = pesquisaNodo(nome, root);
+            if(aux == null){
+                return null;
+            }
+            if(aux == root){
+                return null;
+            }
+            return aux.pai.nome;
+        }
+        return null;
+    }
+    // --> Verifica se filho/pai está na árvore.
+    public boolean contains(String nome){
+        // --> Cria auxiliar.
+        NodoArvore aux = this.pesquisaNodo(nome, root);
+        // --> Caso não existir/null retorna false.
+        if(aux == null){
+            return false;
+        }else{
+            return true;
+        }
+//-----------------------------------------------------------------
+    // METODOS IsEXTERNAL E IsINTERNAL
+    // --> Verifica se é folha (ou externo).
+    public boolean isExternal(String nome){
+        // --> Cria auxiliar.
+        NodoArvore aux = this.pesquisaNodo(nome, root);
+        // --> Verifica se existe.
+        if(aux == null){
+            return false;
+        }
+        // --> Caso for uma folha, retorna true.
+        if(aux.getSubtreeSize() == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    // --> Verifica se tem filhos (ou interno).
+    public boolean isInternal(String nome){
+        // --> Cria auxiliar.
+        NodoArvore aux = this.pesquisaNodo(nome, root);
+        // --> Verifica se existe.
+        if(aux == null){
+            return false;
+        }
+        // --> Caso ter filhos, retorna true.
+        if(aux.getSubtreeSize() == 0){
+            return false;
+        }else{
+            return true;
+        }
+    }
+//-----------------------------------------------------------------
+    // METODOS ESTATISTICAS
+    // --> Retorna quantidade de terras de um filho/pai
+    public int QtdTerras(String nome, String pai){
+        // --> Cria auxiliar.
+        NodoArvore aux = this.pesquisaNodo(nome, root);
+
+        // --> Caso não exista retorna -1.
+        if(aux == null){
+            return -1;
+            // --> Se não retorna o número de terras.
+        }else{
+            return aux.terras;
+        }
+    }
+    // --> Verifica o nodo com maior número de filhos.
+    public int getMaisFilhos(NodoArvore nodo, int nFilhos){
+        // --> Verifica se é nulo (null ou 0)
+        if(nodo == null){
+            return nFilhos;
+        }
+        if(nodo.getSubtreeSize() == 0){
+            return nFilhos;
+        }
+
+        // --> Caso nodo tenha um número de filhos maior que nFilhos
+        // --> Então atualiza o dado
+        if(nodo.getSubtreeSize() > nFilhos){
+            nFilhos = nodo.getSubtreeSize();
+        }
+        // --> Recursão :) (para cada filho)
+        for(int i = 0; i < nodo.getSubtreeSize(); i++){
+            nFilhos = getMaisFilhos(nodo.getSubtree(i), nFilhos);
+        }
+        return nFilhos;
+    }
+//-----------------------------------------------------------------
+    // MÉTODOS AUXILIARES
+    // --> Limpar árvore.
+    //     --> Com ajudinha do garbage collector :)
+    public void clear(){
+        nElementos = 0;
+        root = null;
+    }
+    // --> Verifica se árvore está vazia.
+    public boolean isEmpty(){
+        return (nElementos == 0);
+    }
+    // --> Verifica tamanho da árvore.
+    public int size(){
+        return nElementos;
+    }
+//-----------------------------------------------------------------
