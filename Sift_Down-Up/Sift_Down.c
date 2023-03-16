@@ -1,19 +1,15 @@
- private void sift_down ( int pos ) {
+    private void sift_down(int pos){
         int max = pos;
-        int esq = ((2*pos)+1);
-        int dir = ((2*pos)+2);
+        int esq = left(pos);
+        int dir = right(pos);
 
-        if((esq <= used) && (v[esq] > v[max])){
-             max = esq;
-        }
-        if((dir <= used) && (v[dir] > v[max])){
-            max = dir;
-        }
+        if((esq < used) && (v[esq] > v[max])) max = esq;
+        if((dir < used) && (v[dir] > v[max])) max = dir;
+
         if(pos != max){
-            int aux;
-            aux = v[pos];
-            v[pos] = v[parent(pos)];
-            v[parent(pos)] = aux;
-            sift_down(max);
+            int aux = v[pos];
+            v[pos] = v[max];
+            v[max] = aux;
+            sift_down(max); //recursao
         }
     }
