@@ -1,10 +1,11 @@
-private void sift_up ( int pos ) {
-        int aux;
-        while((pos > 0) && (v[parent(pos)] < v[pos])){
-            aux = v[pos];
-            v[pos] = v[parent(pos)];
-            v[parent(pos)] = aux;
-
-            pos = parent(pos);
+private void sift_up (int pos) {
+        int ppai = parent(pos);
+        while((pos > 0) && (v[ppai] < v[pos])){
+            int aux = v[pos];
+            v[pos] = v[ppai];
+            v[ppai] = aux;
+            
+            pos = ppai;
+            ppai = parent(pos);
        }
     }
